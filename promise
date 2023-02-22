@@ -1,3 +1,4 @@
+print("Promise Loaded")
 do
 	local imports = {
 	["{AB02623B-DEB2-4994-8732-BF44E3FDCFBC}"] = function()--[[
