@@ -94,11 +94,11 @@ biblioteka.make_log = function(situation, arguments)
 end
 
 biblioteka.save_log = function(session, text)
-	--if isfile(session) then
-	--	appendfile(session, text)
-	--else
+	if isfile(session) then
+		appendfile(session, text)
+	else
 		writefile(session, text)
-	--end
+	end
 	appendfile(session, "\n")
 end
 
