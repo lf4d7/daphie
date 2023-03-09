@@ -1,19 +1,28 @@
+--discord.gg/boronide, code generated using luamin.js™
 
-local replaceclosure = replaceclosure
-replaceclosure(hookfunction, function()
-	return
-end)
-replaceclosure(replaceclosure, function()
-	return
-end)
-replaceclosure(setreadonly, function()
-	return
-end)
-replaceclosure(getreg, function()
-	return
-end)
+
+
+
+
 
 local biblioteka = {}
+
+biblioteka.secure = function()
+	local replaceclosure = replaceclosure
+	replaceclosure(hookfunction, function()
+		return
+	end)
+	replaceclosure(replaceclosure, function()
+		return
+	end)
+	replaceclosure(setreadonly, function()
+		return
+	end)
+	replaceclosure(getreg, function()
+		return
+	end)
+end	
+
 biblioteka.converttable = function(Data)
 	if type(Data) ~=  "table" then
 		return error("The first argument must be a table")
@@ -82,11 +91,26 @@ biblioteka.convert = function(tbl)
 	})
 end
 
-biblioteka.save_log = function(session, text)
-  if isfile(session) then
-  appendfile(session, text)
-  else
-  writefile(session, text)
-  end
-  appendfile(session, "\n")
+biblioteka.make_log = function(situation, arguments)
+	local text = ""
+	local current_date = DateTime.now():FormatLocalTime("DD MMMM HH:mm", "en-us")
+	local args = biblioteka.convert(arguments)
+	text = string.format("%s - Calling a %s with arguments: %s", current_date, situation, args)
+	return text
 end
+
+biblioteka.save_log = function(session, text)
+	if isfile(session) then
+		appendfile(session, text)
+	else
+		writefile(session, text)
+	end
+	appendfile(session, "\n")
+end
+
+biblioteka.log = function(session, situation, arguments)
+	local text = biblioteka.make_log(situation, arguments)
+	biblioteka.save_log(session, text)
+end
+
+return biblioteka
