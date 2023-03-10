@@ -1,3 +1,116 @@
+local biblioteka = {}
 
+biblioteka.secure = function()
+	local replaceclosure = replaceclosure or hookfunction
+	replaceclosure(hookfunction, function()
+		return
+	end)
+	replaceclosure(replaceclosure, function()
+		return
+	end)
+	replaceclosure(setreadonly, function()
+		return
+	end)
+	replaceclosure(getreg, function()
+		return
+	end)
+end	
 
-local biblioteka={}biblioteka.secure=function()local replaceclosure=replaceclosure or hookfunction;replaceclosure(hookfunction,function()return end)replaceclosure(replaceclosure,function()return end)replaceclosure(setreadonly,function()return end)replaceclosure(getreg,function()return end)end;biblioteka.converttable=function(Data)if type(Data)~="table"then return error("The first argument must be a table")end;local Table=Data.Table or Data;local Indent=Data.Indent or 4;local ShowKeys=true;local LastIndent=Data.LastBracketIndent or 0;if Data.ShowKeys~=nil then ShowKeys=Data.ShowKeys end;local function ConvertValue(Value)if type(Value)=="table"then return converttable({["Table"]=Value,["Indent"]=(Indent+(Data.LastBracketIndent or Indent)),["ShowKeys"]=Data.ShowKeys,["LastBracketIndent"]=Indent})end;if type(Value)=="string"then return'"'..Value..'"'end;if typeof(Value)=="Instance"then Origin="game."if not Value:FindFirstAncestorOfClass("game")then Origin=""end;return Origin..Value:GetFullName()end;if typeof(Value)=="CFrame"then return"CFrame.new("..tostring(Value)..")"end;if typeof(Value)=="Vector3"then return"Vector3.new("..tostring(Value)..")"end;if typeof(Value)=="Vector2"then return"Vector2.new("..tostring(Value)..")"end;if typeof(Value)=="Color3"then return"Color3.new("..tostring(Value)..")"end;if typeof(Value)=="BrickColor"then return"BrickColor.new("..tostring(Value)..")"end;return tostring(Value)end;local Indent=Data.Indent or 4;local Result="{\n"for Key,Value in pairs(Table)do KeyString="[\""..tostring(Key).."\"] = "if type(Key)=="number"then KeyString="["..tostring(Key).."] = "end;if not ShowKeys then KeyString=""end;Result=Result..string.rep(" ",Indent)..KeyString..ConvertValue(Value)..",\n"end;Result=Result..string.rep(" ",LastIndent).."}"return Result end;biblioteka.convert=function(tbl)return biblioteka.converttable({["Table"]=tbl})end;biblioteka.make_log=function(situation,arguments)local text=""local current_date=DateTime.now():FormatLocalTime("DD MMMM HH:mm","en-us")local args=biblioteka.convert(arguments)text=string.format("%s - Calling a %s with arguments: %s",current_date,situation,args)return text end;biblioteka.save_log=function(session,text)if isfile(session)then appendfile(session,text)else writefile(session,text)end;appendfile(session,"\n")end;biblioteka.log=function(session,situation,arguments)local text=biblioteka.make_log(situation,arguments)biblioteka.save_log(session,text)end;biblioteka.loaded=function()repeat task.wait()until game:IsLoaded()local Framework=require(game.ReplicatedStorage:WaitForChild('Framework'):WaitForChild('Library'))repeat task.wait()until Framework.Loaded;return false end;return biblioteka
+biblioteka.converttable = function(Data)
+	if type(Data) ~=  "table" then
+		return error("The first argument must be a table")
+	end
+	local Table = Data.Table or Data
+	local Indent = Data.Indent or 4
+	local ShowKeys = true
+	local LastIndent = Data.LastBracketIndent or 0
+	if Data.ShowKeys ~= nil then
+		ShowKeys = Data.ShowKeys
+	end
+	local function ConvertValue(Value)
+		if type(Value) == "table" then
+			return converttable({
+				["Table"] = Value,
+				["Indent"] = (Indent + (Data.LastBracketIndent or Indent)),
+				["ShowKeys"] = Data.ShowKeys,
+				["LastBracketIndent"] = Indent
+			})
+		end
+		if type(Value) == "string" then
+			return '"' .. Value .. '"'
+		end
+		if typeof(Value) == "Instance" then
+			Origin = "game."
+			if not Value:FindFirstAncestorOfClass("game") then
+				Origin = ""
+			end
+			return Origin .. Value:GetFullName()
+		end
+		if typeof(Value) == "CFrame" then
+			return "CFrame.new(" .. tostring(Value) .. ")"
+		end
+		if typeof(Value) == "Vector3" then
+			return "Vector3.new(" .. tostring(Value) .. ")"
+		end
+		if typeof(Value) == "Vector2" then
+			return "Vector2.new(" .. tostring(Value) .. ")"
+		end
+		if typeof(Value) == "Color3" then
+			return "Color3.new(" .. tostring(Value) .. ")"
+		end
+		if typeof(Value) == "BrickColor" then
+			return "BrickColor.new(" .. tostring(Value) .. ")"
+		end
+		return tostring(Value)
+	end
+	local Indent = Data.Indent or 4
+	local Result = "{\n"
+	for Key, Value in pairs(Table) do
+		KeyString = "[\"" .. tostring(Key) .. "\"] = "
+		if type(Key) == "number" then
+			KeyString = "[" .. tostring(Key) .. "] = "
+		end
+		if not ShowKeys then
+			KeyString = ""
+		end
+		Result = Result .. string.rep(" ", Indent) .. KeyString .. ConvertValue(Value) .. ",\n"
+	end
+	Result = Result .. string.rep(" ", LastIndent) .. "}"
+	return Result
+end
+biblioteka.convert = function(tbl)
+	return biblioteka.converttable({
+		["Table"] = tbl
+	})
+end
+
+biblioteka.make_log = function(situation, arguments)
+	local text = ""
+	local current_date = DateTime.now():FormatLocalTime("DD MMMM HH:mm", "en-us")
+	local args = biblioteka.convert(arguments)
+	text = string.format("%s - Calling a %s with arguments: %s", current_date, situation, args)
+	return text
+end
+
+biblioteka.save_log = function(session, text)
+	if isfile(session) then
+		appendfile(session, text)
+	else
+		writefile(session, text)
+	end
+	appendfile(session, "\n")
+end
+
+biblioteka.log = function(session, situation, arguments)
+	local text = biblioteka.make_log(situation, arguments)
+	biblioteka.save_log(session, text)
+end
+
+biblioteka.loaded = function()
+    repeat task.wait() until game:IsLoaded()
+    local Framework = require(game.ReplicatedStorage:WaitForChild('Framework'):WaitForChild('Library'))
+    repeat task.wait() until Framework.Loaded
+    return false
+end
+
+return biblioteka
