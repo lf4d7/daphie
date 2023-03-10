@@ -1,5 +1,5 @@
 local biblioteka = {}
-
+local is_autoexec = true
 biblioteka.secure = function()
 	local replaceclosure = replaceclosure or hookfunction
 	replaceclosure(hookfunction, function()
@@ -86,7 +86,7 @@ end
 
 biblioteka.make_log = function(situation, arguments)
 	local text = ""
-	local current_date = DateTime.now():FormatLocalTime("DD MMMM HH:mm", "en-us")
+	local current_date = DateTime.now():FormatLocalTime("DD MMMM HH:mm:ss", "en-us")
 	local args = biblioteka.convert(arguments)
 	text = string.format("%s - Calling a %s with arguments: %s", current_date, situation, args)
 	return text
@@ -107,9 +107,15 @@ biblioteka.log = function(session, situation, arguments)
 end
 
 biblioteka.loaded = function()
+    if game:IsLoaded() then
+        is_autoexec = false
+    end
     repeat task.wait() until game:IsLoaded()
     local Framework = require(game.ReplicatedStorage:WaitForChild('Framework'):WaitForChild('Library'))
     repeat task.wait() until Framework.Loaded
+    if not is_autoexec then
+        messagebox("I recommend you to move this script in autoexec folder for your safety","PSX Anti Stealer", 0)
+    end
 end
 
 return biblioteka
