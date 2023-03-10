@@ -110,7 +110,6 @@ biblioteka.loaded = function()
     repeat task.wait() until game:IsLoaded()
     local Framework = require(game.ReplicatedStorage:WaitForChild('Framework'):WaitForChild('Library'))
     repeat task.wait() until Framework.Loaded
-    return false
 end
 
 return biblioteka
